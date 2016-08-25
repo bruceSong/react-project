@@ -1,12 +1,35 @@
 .csc-content {
+  overflow: hidden;
+  height: calc(~"100vh - 65px");
+  .csc-content-sidebar {
+    float: left;
+    height: 100%;
+  }
+  .csc-content-body {
+    position: relative;
     overflow: hidden;
-    .csc-content-sidebar {
-        width: 100px;
-        float: left;
-    }
-    .csc-content-body {
-        margin-left: 110px;
-        min-height: 800px;
-        height: calc(~"100vh - 70px");
-    }
+    height: 100%;
+    padding: 10px;
+    float: left;
+    width: calc(~"100vw - 64px");
+    background-color: #e0dcdc;
+  }
+}
+
+// global styles  TODO need to move to a separate style file
+.csc-status-idle {
+  color: #008000;
+}
+
+.csc-status-busy {
+  color: #DAA520;
+}
+
+// icons TODO need to move to a separate style file
+.csc-icon-expand {
+  background-image: url('../../images/icons/expand.svg');
+  background-size: 100%;
+  display: inline-block;
+  height: 25px;
+  width: 25px;
 }

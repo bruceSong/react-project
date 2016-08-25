@@ -18,7 +18,7 @@ module.exports = {
     output: {
         path: __dirname + config.path.build,
         // 根据线上环境添加域名及base路径前缀
-        // publicPath: '/op/demo/build/',
+        //publicPath: '/csc/static/pkg/',
         filename: config.path.jsdir + '[name]-[chunkhash:10].js',
     },
     externals: [require('./externals')],

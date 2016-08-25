@@ -9,7 +9,7 @@ wrench.readdirSyncRecursive('./gulp').filter(function (file) {
 });
 
 gulp.task('dev', function(cb) {
-    sequence('clean', 'usemin', 'webpack', 'watch', 'server', cb);
+    sequence('clean', 'openapi', 'usemin', 'webpack', 'watch', 'server', 'login', cb);
 });
 
 gulp.task('default', function() {
@@ -17,7 +17,7 @@ gulp.task('default', function() {
 });
 
 gulp.task('build', function(cb) {
-    sequence('clean', 'usemin', 'webpack', 'md5', 'collector', 'del', cb);
+    sequence('clean', 'usemin', 'webpack', 'md5', 'collector', 'del', 'save-map', cb);
 });
 
 gulp.task('test', function(cb) {

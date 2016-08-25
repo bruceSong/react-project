@@ -1,0 +1,136 @@
+{
+  "name": "Alpha Account Configuration",
+  "description": "这里预填了一批各环境的登录账号，可在生成的accounts.json里新增账号",
+  "sde": [{
+    "enterprise": "fssdetest",
+    "accounts": [{
+      "account": "fany",
+      "password": "123qwe"
+    }, {
+      "account": "swj1",
+      "password": "123qwe"
+    }, {
+      "account": "linxl",
+      "password": "123qwe"
+    }, {
+      "account": "houyf",
+      "password": "123456a"
+    }]
+  }],
+  "fte": [{
+    "enterprise": "ftetest",
+    "accounts": [{
+      "account": "fany",
+      "password": "123qwe"
+    }, {
+      "account": "swj1",
+      "password": "123qwe"
+    }, {
+      "account": "linxl",
+      "password": "123qwe"
+    }, {
+      "account": "houyf",
+      "password": "123456a"
+    }]
+  }],
+  "fte2": [{
+    "enterprise": "fsfte2a",
+    "accounts": [{
+      "account": "fany",
+      "password": "123qwe"
+    }, {
+      "account": "swj1",
+      "password": "123qwe"
+    }, {
+      "account": "linxl",
+      "password": "123qwe"
+    }, {
+      "account": "houyf",
+      "password": "123456a"
+    }, {
+      "account": "yangjh",
+      "password": "123456a"
+    }, {
+      "account": "yuanjie1",
+      "password": "123456M"
+    }, {
+      "account": "15001351080",
+      "password": "123qwe"
+    }, {
+      "account": "18676792967",
+      "password": "a123456"
+    }, {
+      "account": "18667197213",
+      "password": "123456a"
+    }, {
+      "account": "usertest002",
+      "password": "123qwe"
+    }, {
+      "account": "kechengtest001",
+      "password": "123qwe"
+    }, {
+      "account": "admintest001",
+      "password": "123qwe"
+    }]
+  }, {
+    "enterprise": "fsfte2b",
+    "accounts": [{
+      "account": "18318815051",
+      "password": "a123456"
+    }, {
+      "account": "18811110021",
+      "password": "a123456"
+    }, {
+      "account": "18667197213",
+      "password": "a123456"
+    }]
+  }],
+  "pte": [{
+    "enterprise": "ptetest",
+    "accounts": [{
+      "account": "fany",
+      "password": "123qwe"
+    }, {
+      "account": "swj1",
+      "password": "123qwe"
+    }, {
+      "account": "linxl",
+      "password": "123qwe"
+    }, {
+      "account": "houyf",
+      "password": "123456a"
+    }]
+  }],
+  "fsceshi": [{
+    "enterprise": "7",
+    "accounts": [{
+      "account": "fany",
+      "password": "123qwe"
+    }, {
+      "account": "swj1",
+      "password": "123qwe"
+    }, {
+      "account": "linxl",
+      "password": "123qwe"
+    }, {
+      "account": "houyf",
+      "password": "123456a"
+    }]
+  }],
+  "fktest": [{
+    "enterprise": "fktest",
+    "accounts": [{
+      "account": "fany",
+      "password": "123qwe"
+    }, {
+      "account": "swj1",
+      "password": "123qwe"
+    }, {
+      "account": "linxl",
+      "password": "123qwe"
+    }, {
+      "account": "houyf",
+      "password": "123456a"
+    }]
+  }]
+}

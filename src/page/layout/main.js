@@ -1,5 +1,5 @@
 import React from 'react';
-import {ToolBar, SideBar, Footer} from 'components/layout';
+import {ToolBar, SideBar} from 'components/layout';
 
 require('./main.less');
 
@@ -15,7 +15,6 @@ const Main = (props) => {
                     {props.children}
                 </div>
             </div>
-           <Footer />
         </div>
     );
 };

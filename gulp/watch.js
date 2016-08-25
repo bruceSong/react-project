@@ -9,5 +9,6 @@ gulp.task('watch', function() {
     global.isWatch = true;
     gulp.watch(config.path.src + '/**').on('change', function(file) {
         gulp.start('reload');
+        gulp.start('openapi');
     })
 });

@@ -1,12 +1,16 @@
 {
     "proxies": [
         {
-            "path": "/(login|resources|logout|g/api|getcaptcha)",
-            "proxy": "172.31.103.107:8080"
+            "path": "/FHH/EM0HXUL/Authorize/Login",
+            "proxy": "172.31.102.3:9982"
         },
         {
-            "path": "/(op/api|op/s/api)",
-            "proxy": "172.31.103.107"
+            "path": "/FHH/EM1HCSC/CallCenter/SignIn",
+            "proxy": "172.31.102.134:8012"
+        },
+        {
+            "path": "/FHH/EM1HCSC/CallCenter/CallOut",
+            "proxy": "172.31.102.134:8012"
         }
     ]
 }

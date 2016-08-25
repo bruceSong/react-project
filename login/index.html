@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<meta name="renderer" content="webkit"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<title>登录纷享销客</title>
+<meta name="description" content="" />
+<meta name="author" content="fxiaoke" />
+<meta name="viewport" content="width=device-width"/>
+<link rel="shortcut icon" href="https://www.fxiaoke.com/favicon.ico" />
+<link rel="apple-touch-icon" href="https://www.fxiaoke.com/apple-touch-icon.png" />
+<style>
+html, body {
+  width: 100%;
+  height: 100%;
+}
+body {
+  margin: 0;
+  overflow: hidden;
+  background: #2db7f5;
+}
+.cover {
+  width: 100%;
+  height: 100%;
+}
+.login-box {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 80px;
+  width: 430px;
+  margin: 0 auto;
+  padding: 25px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.8);
+}
+header {
+  text-align: center;
+}
+header h1 {
+  margin: 0;
+  font-size: 24px;
+}
+header p {
+  color: #999;
+}
+.form-item {
+  padding: 10px 0;
+}
+.form-item label {
+  display: inline-block;
+}
+select, input[type="text"] {
+  width: 300px;
+  height: 40px;
+  padding: 0 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 18px;
+}
+select::-ms-expand {
+  display: none;
+}
+input[type="text"]::-ms-clear {
+  display: none;
+}
+input[type="submit"] {
+  display: block;
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 10px;
+  background-color: #f8a200;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+}
+.captchaimg-box {
+  padding: 5px 0;
+  text-align: right;
+}
+.captchaimg-box img {
+  vertical-align: middle;
+}
+.captchaimg-box a {
+  margin-left: 10px;
+}
+a.toggle-mode {
+  margin-left: 10px;
+  font-size: 13px;
+  color: #3487e2;
+}
+</style>
+</head>
+<body>
+  <section class="login-box">
+    <header>
+      <h1>Welcome To 本地开发快速登录页面</h1>
+      <p>当前环境：<% env %></p>
+    </header>
+    <form id="form" action="/FHH/EM0HXUL/Authorize/Login" method="post">
+      <div class="form-item">
+        <label>企业：<select id="enterprise" name="enterprise"></select></label>
+        <a class="toggle-mode" data-for="enterprise" href="javascript:;">我要手输</a>
+      </div>
+      <div class="form-item">
+        <label>个人：<select id="account" name="account"></select></label>
+        <a class="toggle-mode" data-for="account" href="javascript:;">我要手输</a>
+      </div>
+      <div class="form-item">
+        <label>密码：<input id="password" type="text" name="password" /></label>
+      </div>
+      <div class="form-item captcha" style="display:none">
+        <label>验证码：<input id="captcha" type="text" name="captcha" /></label>
+        <div class="captchaimg-box"><img id="captchaImg" src="" /><a href="javascript:;" id="changeCaptcha">换一张</a></div>
+      </div>
+      <div class="form-item" style="padding-top: 20px;">
+        <input type="submit" value="登 录" />
+      </div>
+    </form>
+  </section>
+  <script>
+  (function() {
+    var env = '<% env %>';
+    var enterprises = <% accounts %>;
+    var currentAccounts = [];
+
+    var $form = document.getElementById('form');
+    var $enterprise = document.getElementById('enterprise');
+    var $account = document.getElementById('account');
+    var $password = document.getElementById('password');
+
+    $form.onsubmit = function(evt) {
+      evt.preventDefault();
+      login({
+        enterprise: $form['enterprise'].value,
+        account: $form['account'].value,
+        password: $form['password'].value,
+      });
+    };
+
+    $enterprise.onchange = function(evt) {
+      setEnterprise(evt.target.value);
+    };
+
+    $account.onchange = function(evt) {
+      setAccount(evt.target.value);
+    };
+
+    var toggles = Array.prototype.slice.call(document.querySelectorAll('.toggle-mode'));
+    toggles.forEach(function(node) {
+      node.addEventListener('click', function() {
+        var target = document.getElementById(node.getAttribute('data-for'));
+        if(target.nodeName === 'SELECT') {
+          var parent = target.parentNode;
+          var ipt = document.createElement('input');
+          ipt.type = 'text';
+          ipt.id = target.id;
+          ipt.name = target.name;
+          parent.removeChild(target);
+          parent.appendChild(ipt);
+        }
+      });
+    });
+
+    var enterprise_opts = [];
+    for(var i = 0; i < enterprises.length; i ++) {
+      var a = enterprises[i];
+      enterprise_opts.push('<option value="' + a.enterprise + '">' + a.enterprise + '</option>');
+    }
+    $enterprise.innerHTML = enterprise_opts.join('');
+    setEnterprise(enterprises[0].enterprise);
+
+    function setEnterprise(enterprise) {
+      var accounts = getAccounts(enterprise);
+      currentAccounts = accounts;
+
+      var account_opts = [];
+      for(var i = 0; i < accounts.length; i++) {
+        var account = accounts[i];
+        account_opts.push('<option value="' + account.account + '">' + account.account + '</option>');
+      }
+      $account.innerHTML = account_opts.join('');
+      setAccount(accounts[0].account);
+    }
+
+    function setAccount(account) {
+      var pwd = getPassword(account);
+      $password.value = pwd;
+    }
+
+    function getAccounts(enterprise) {
+      for(var i = 0; i < enterprises.length; i++) {
+        var item = enterprises[i];
+        if(item.enterprise === enterprise) {
+          return item.accounts;
+        }
+      }
+      return [];
+    }
+
+    function getPassword(account) {
+      for(var i = 0; i < currentAccounts.length; i++) {
+        var item = currentAccounts[i];
+        if(item.account === account) {
+          return item.password;
+        }
+      }
+      return '';
+    }
+
+    function login(data) {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if(xhr.readyState === 4 && xhr.status === 200) {
+          var response = JSON.parse(xhr.responseText || '{}');
+          if (response.Value){
+            if(response.Value.Result === 7) {
+              var expires = new Date();
+              expires.setTime(expires.getTime() + 180 * 24 * 3600 * 1000);
+              setCookie('__alpha_env', env, expires);
+              setCookie('__alpha_enterprise', data.enterprise, expires);
+              setCookie('__alpha_account', data.account, expires);
+              window.location.href = '/XV/Home/Index#stream';
+              return;
+            }
+            if(response.Value.IsNeedImageCode) {
+              document.querySelector('.form-item.captcha').style.display = '';
+              changeCaptcha();
+              return;
+            }
+          }
+          alert('登录失败，换个账号试试');
+        }
+      };
+      xhr.open($form.method, $form.action, true);
+      xhr.setRequestHeader('Content-type', 'application/javascript');
+      xhr.send(JSON.stringify({
+        EnterpriseAccount: data.enterprise,
+        UserAccount: data.account,
+        Password: data.password,
+        ImgCode: document.getElementById('captcha').value,
+        PersistenceHint: true,
+        ClientId: +new Date() + ''
+      }));
+    }
+
+    function setCookie(name, value, expires) {
+      document.cookie = name + '=' + value + ';path=/' + ';expires=' + expires.toGMTString();
+    }
+
+    function changeCaptcha() {
+      document.getElementById('captchaImg').src = '/FSC/N/Captcha/Get?cid=' + (+new Date());
+    }
+  })();
+  </script>
+</body>
+</html>

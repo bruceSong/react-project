@@ -6,6 +6,9 @@ module.exports = {
         components: path.resolve(__dirname, '../', './src/components'),
         modules: path.resolve(__dirname, '../', './src/modules'),
         lib: path.resolve(__dirname, '../', './src/lib'),
-        page: path.resolve(__dirname, '../', './src/page')
+        page: path.resolve(__dirname, '../', './src/page'),
+        actions : path.resolve(__dirname, '../', './src/actions'),
+        stores : path.resolve(__dirname, '../', './src/stores'),
+        constants : path.resolve(__dirname, '../', './src/constants')
     }
 };
